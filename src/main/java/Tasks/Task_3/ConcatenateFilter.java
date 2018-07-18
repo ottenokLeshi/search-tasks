@@ -11,7 +11,7 @@ import java.util.Map;
 public class ConcatenateFilter extends TokenFilter {
     private CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     private OffsetAttribute offSetAtt = addAttribute(OffsetAttribute.class);
-    private String delimiter = " + ";
+    private String delimiter = " ";
     private boolean done = false;
 
     protected ConcatenateFilter(TokenStream input) {
@@ -23,15 +23,12 @@ public class ConcatenateFilter extends TokenFilter {
         this.delimiter = args.get("delimiter");
     }
 
-    public void setDelimiter(String delimiter) {
-        this.delimiter = delimiter;
-    }
-
     @Override
     public final boolean incrementToken() throws IOException {
         if (done) {
             return false;
         }
+
         StringBuilder stringBuilder = new StringBuilder();
         boolean first = true;
 

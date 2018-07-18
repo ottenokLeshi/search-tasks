@@ -67,13 +67,11 @@ public class Task_2 extends Task {
             List<SpanTermQuery> spanQueries = Arrays.stream(query.split(" ")).map(str ->
                     new SpanTermQuery(new Term("text",str))).collect(Collectors.toList());
 
-
             resultQuery = new SpanNearQuery(spanQueries.toArray(
                     new SpanQuery[spanQueries.size()]),
                     distance,
                     true);
         }
-
 
         ScoreDoc[] hits = indexSearcher.search(resultQuery, 1000).scoreDocs;
 

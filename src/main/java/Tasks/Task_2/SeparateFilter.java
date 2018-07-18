@@ -18,7 +18,6 @@ public class SeparateFilter extends TokenFilter {
     private State state = new State();
     private boolean done = false;
 
-
     protected SeparateFilter(TokenStream input) {
         super(input);
     }
