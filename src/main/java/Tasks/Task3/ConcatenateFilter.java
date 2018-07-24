@@ -1,4 +1,4 @@
-package Tasks.Task_3;
+package Tasks.Task3;
 
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
@@ -9,16 +9,13 @@ import java.io.IOException;
 import java.util.Map;
 
 public class ConcatenateFilter extends TokenFilter {
+
     private CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     private OffsetAttribute offSetAtt = addAttribute(OffsetAttribute.class);
-    private String delimiter = " ";
+    private String delimiter;
     private boolean done = false;
 
-    protected ConcatenateFilter(TokenStream input) {
-        super(input);
-    }
-
-    protected ConcatenateFilter(TokenStream input, Map<String, String> args) {
+    ConcatenateFilter(TokenStream input, Map<String, String> args) {
         super(input);
         this.delimiter = args.get("delimiter");
     }
@@ -46,11 +43,13 @@ public class ConcatenateFilter extends TokenFilter {
         offSetAtt.setOffset(0, stringBuilder.length());
 
         done = true;
+
         return true;
     }
 
     @Override
-    public void end() {
+    public void end() throws IOException {
+        super.end();
         done = false;
     }
 }
